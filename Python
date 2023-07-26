@@ -1,0 +1,86 @@
+#Linguagem python, esses são alguns códigos que desenvolvi
+
+##Elaboração do Método de Newthon Raphson##
+
+def Newthon_rapson(f, dx, xO, E, max_int):
+
+    x=xO
+    for i in range(max_int):
+        fx = f(x)
+        if abs(x) < E and abs(fx) < E:
+            return x
+        dfx = df(x)
+        if dfx == 0:
+            print("tente outro chute inicial onde a derivada não resulte em 0")
+            break
+        x = x - fx/dfx
+    return x
+
+def f(x):
+    return x**2 - 9
+def df(x):
+    return 2*x
+E = 0.0001
+max_int = 50
+
+metodo_NR1 = Newthon_rapson(f,df,4,E,max_int) #chute inicial 4
+print(metodo_NR1)
+metodo_NR2 = Newthon_rapson(f,df,-4,E,max_int) #chute inicial -4
+print(metodo_NR2)
+metodo_NR3 = Newthon_rapson(f,df,0,E,max_int) #chute inicial 0
+print(metodo_NR3)
+
+## Método Monte Carlo ##
+#Objetivo indicar a área de um círculo
+import random
+import math
+
+def monte_carlo(npts):
+    pa = 0
+    r = 1
+    for i in range(npts):
+        x = random.randint(-10000,10000)/10000
+        y = random.randint(-10000,10000)/10000
+        if x**2 + y**2 <= r**2:
+            pa += 1
+    return 4 * pa/npts
+
+resultado = monte_carlo(1000)
+print(resultado)
+
+resultado = monte_carlo(5000000)
+print(resultado)
+
+
+## Pirâmide de Pascoal##
+
+import math
+def Ppascoal(n):
+        if n == 0:
+            return [1]
+        lista = [1]
+        for k in range(n):
+            lista.append(int(lista[-1] * (n - k) / (k + 1)))
+        return lista
+
+X = Ppascoal(3)
+print(X)
+
+## Piramide de Pascoal Recursiva ##
+
+def pascal_recursivo(n):
+    if n == 0:
+        linha_atual = [1]
+    linha_atual = [1]
+    for i in range(1, n+1):
+        linha_anterior = linha_atual
+        linha_atual = [1]
+        for j in range(1, i):
+            linha_atual.append(linha_anterior[j-1] + linha_anterior[j])
+        linha_atual.append(1)
+    return linha_atual
+
+
+print(pascal_recursivo(0))  # gera linha 1 da pirâmide
+print(pascal_recursivo(1))
+# gera linha 2 da pirâmide
